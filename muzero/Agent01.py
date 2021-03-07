@@ -5,18 +5,22 @@ from networks.shared_storage import SharedStorage
 from self_play.self_play import run_selfplay
 import numpy as np
 
+# This is an example of a single self-play agent that runs network inference on CPU.
 
-config = make_supermariobros_config()
+config = make_supermariobros_config() # Get configuration
+# Create a copy of the neural network
 storage = SharedStorage(config.new_network(), config.uniform_network(), config.new_optimizer(), config.ex_optimizer(), config.network_path)
 
-agent = 'agent01'
+agent = 'agent01' # Agent name for labeling game files
       
-prev_loops = [int(f.split('_')[1]) for f in os.listdir(config.memory_path)]    
+# Use existing files to determine previous self-play cycles
+prev_loops = [int(f.split('_')[1]) for f in os.listdir(config.memory_path)]  
 try:
     loop = np.amax(prev_loops)
 except:
     loop = 0
-    
+
+# While loop for continuous self play
 while loop < 5000:
     prev_loops = [int(f.split('_')[1]) for f in os.listdir(config.memory_path)]    
     try:
