@@ -7,6 +7,7 @@ This fork contains modifications of MuZero to train a Super Mario Bros AI on a h
  - Separate Agent and Trainer scripts to allow full multiprocessing. Tested with 4 agents, 1 trainer.
  - Complete games are saved to disk rather than duplicating the replay_buffer for each agent
  - Replaced policy noise with an exploration network, which guides policy toward unexplored actions instead of random actions
+ - Prioritized experience replay
  - Many other undocumented changes to make everything work
  
  
