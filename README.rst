@@ -1,7 +1,7 @@
 .. |copy| unicode:: 0xA9
 .. |---| unicode:: U+02014
 
-This fork contains modifications of MuZero to train a Super Mario Bros AI on a hobbyist machine. Changes included:
+This fork contains modifications of MuZero to train a Super Mario Bros AI on a hobbyist machine. Changes include:
  - Eliminated MCTS in favor of a learned search via the Policy network (to speed up training). Technically, this means that the
     algorithm is no longer MuZero, but it should provide a similar performance for NES and Atari games.
  - Separate Agent and Trainer scripts to allow full multiprocessing. Tested with 4 agents, 1 trainer.
