@@ -5,9 +5,11 @@ from training.training import train_network
 import os
 import numpy as np
 
+# Trainer process to train the neural network
 
-config = make_supermariobros_config()
-replay_buffer = ReplayBuffer(config)
+config = make_supermariobros_config() # Get configuration
+replay_buffer = ReplayBuffer(config) # Create the replay buffer
+# Get any existing network weights
 storage = SharedStorage(config.new_network(), config.uniform_network(), config.new_optimizer(), config.ex_optimizer(), config.network_path)
 storage.latest_network()
 
