@@ -34,12 +34,10 @@ class MuZeroConfig(object):
 
         ### Self-Play
         self.action_space_size = action_space_size
-        # self.num_actors = num_actors
 
         self.visit_softmax_temperature_fn = visit_softmax_temperature_fn
         self.max_moves = max_moves
         self.discount = discount
-
 
         # If we already have some information about which values occur in the
         # environment, we can use them to initialize the rescaling.
@@ -50,27 +48,25 @@ class MuZeroConfig(object):
         ### Training
         self.nb_epochs = nb_epochs  # Nb of epochs per training loop
 
-        # self.training_steps = int(1000e3)
-        # self.checkpoint_interval = int(1e3)
         self.window_size = int(115000)
         self.batch_size = batch_size
-        self.num_unroll_steps = 5
+        self.num_unroll_steps = 5 # Number of moves to look-ahead during training
         self.td_steps = td_steps
 
-        self.weight_decay = 1e-4
-        self.momentum = 0.9
+        self.weight_decay = 1e-4 # Kernel regularizer
+        self.momentum = 0.9 # Optimizer parameter
 
         self.network_args = network_args
         self.network = network
         self.lr = lr
         
-        self.initial_random_moves = 0
+        self.initial_random_moves = 0 # Begin games with random moves during self play
         
         self.network_path = network_path
         self.memory_path = memory_path
         
-        self.num_searches = 3
-        self.search_depth = 3
+        self.num_searches = 3 # Number of moves to evaluate during action selection
+        self.search_depth = 3 # Number of moves to look-ahead during action selection
         # Exponential learning rate schedule
         # self.lr_init = lr_init
         # self.lr_decay_rate = 0.1
@@ -92,7 +88,11 @@ class MuZeroConfig(object):
 
     
 def make_supermariobros_config() -> MuZeroConfig:
+    
     def visit_softmax_temperature(num_moves, training_steps):
+        # The value returned by this function determines the randomness
+        # of action selection during self play. 
+        # 0 = random moves
         if training_steps < 500:
             return 4
         elif training_steps < 1000:
@@ -111,19 +111,19 @@ def make_supermariobros_config() -> MuZeroConfig:
 
     return MuZeroConfig(
         game=SuperMarioBros,
-        nb_epochs=200,
-        network_args={'action_size': 12,
-                      'state_size':  (96,96,64),
-                      'representation_size': 256,
-                      'max_value': 127},
+        nb_epochs=200, # Number of training steps between updates
+        network_args={'action_size': 12, # Number of possible actions
+                      'state_size':  (96,96,64), # Shape of game.make_image output
+                      'representation_size': 256, # Number of filters in the output of the representation network
+                      'max_value': 127}, # Maximum size of the value support - 1
         network=SuperMarioBrosNetwork,
         action_space_size=12,
-        max_moves=550,
-        discount=0.9,
-        batch_size=128,
-        td_steps=10,
+        max_moves=550, # Games will end after this many actions
+        discount=0.9, # Discount factor for future rewards: 0 - 1
+        batch_size=128, # Batch size for training steps
+        td_steps=10, # Number of actions to look-ahead to estimate future rewards
         visit_softmax_temperature_fn=visit_softmax_temperature,
-        lr=0.0002,
-        network_path = r'D:/SuperMarioBrosAI/Networks',
-        memory_path = r'D:/SuperMarioBrosAI/Memories',
+        lr=0.0002, # Learning rate for the optimizer. 
+        network_path = r'D:/SuperMarioBrosAI/Networks', # Path to save network updates
+        memory_path = r'D:/SuperMarioBrosAI/Memories', # Path to save game instances. Also create /MemoriesGifs directory to save gifs
         )
