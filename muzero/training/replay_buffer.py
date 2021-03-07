@@ -76,17 +76,6 @@ class ReplayBuffer(object):
         pos_probs = game.priorities / sum(game.priorities)
         return np.random.choice(len(pos_probs), p=pos_probs)
 
-    def sample_position_value_bias(self, game: AbstractGame) -> int:
-        # Sample position from game either uniformly or according to some priority.
-        history = [i.index for i in game.history]
-        counts = np.bincount(history)
-        common = np.argmax(counts)
-        above_avg = [i[0] for i in np.argwhere(history==common)]
-        below_avg = [i[0] for i in np.argwhere(history!=common)]
-        if random.randint(0,5) != 5:
-            return np.random.choice(below_avg)
-        else:
-            return np.random.choice(above_avg)
     def update_priorities(self, priorities, idx_info):
         for i in range(len(idx_info)):
             game_id, game_pos = idx_info[i]
