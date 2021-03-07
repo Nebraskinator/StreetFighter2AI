@@ -14,24 +14,26 @@ class SuperMarioBros(AbstractGame):
 
     def __init__(self, worlds, discount: float, memory_path: str):
         super().__init__(discount)
-        self.world = np.random.choice(worlds)
-        self.env = gym_super_mario_bros.make('SuperMarioBros-'+self.world+'-v1')
-        self.env = JoypadSpace(self.env, COMPLEX_MOVEMENT)
-        self.actions = list(map(lambda i: Action(i), range(self.env.action_space.n)))
-        self.obs_shape = (96,96,3)
-        self.initial_obs = self.env.reset()
+        self.world = np.random.choice(worlds) # Pick a random level from the list
+        self.env = gym_super_mario_bros.make('SuperMarioBros-'+self.world+'-v1') # Create environment for chosen level
+        self.env = JoypadSpace(self.env, COMPLEX_MOVEMENT) # Limit the action space
+        self.actions = list(map(lambda i: Action(i), range(self.env.action_space.n))) # Legal actions
+        self.obs_shape = (96,96,3) # Shape of frame output after resizing
+        self.initial_obs = self.env.reset() 
+        # Resize initial observation
         self.initial_obs = np.transpose(np.array([cv2.resize(i, (self.obs_shape[1],self.obs_shape[0]), interpolation=cv2.INTER_AREA) for i in np.transpose(self.initial_obs, (2,0,1))]),(1,2,0))
+        # Stack a pair of observations to make a full frame
         self.observations = [np.dstack((self.initial_obs,self.initial_obs,))]
-        self.steps = 4
+        self.steps = 4 # Number of steps to repeat each action
         self.done = False
         self.render_steps = False
-        self.prev_obs = 9
-        self.memory_path = memory_path
-        self.time = 300
-        self.x_pos = 40
-        self.life = 2
-        self.score = 0
-        self.coins = 0
+        self.prev_obs = 9 # Number of previous observations to include when calling make_image
+        self.memory_path = memory_path # Where to save the game
+        self.time = 300 # Initial time for reward calculation
+        self.x_pos = 40 # Initial position for reward calculation
+        self.life = 2 # Initial lives for reward calculation
+        self.score = 0 # Initial score for reward calculation
+        self.coins = 0 # Initial coins for reward calculation
 
 
     @property
@@ -41,30 +43,36 @@ class SuperMarioBros(AbstractGame):
 
     def step(self, action, render=False) -> int:
         """Execute one step of the game conditioned by the given action."""
+        # Create an array to hold all of the observations
         obs = np.zeros((*self.env.observation_space.shape[:2],self.env.observation_space.shape[2]*int(self.steps/2))).astype('uint8')
-        
-
         # Execute {steps} frames and accumulate the reward
-        for i in range(self.steps//2):
-            frame = np.zeros((2,*self.env.observation_space.shape))
+        # We will repeat actions for self.steps frames
+        # Pairs of frames will be fused into one frame
+        # These fused frames will be stacked to form a sequence
+        # that spans self.steps 
+        for i in range(self.steps//2): 
+            frame = np.zeros((2,*self.env.observation_space.shape)) # array to hold our frame pairs
             for ii in range(2):
-                state_frame, reward, done, info = self.env.step(action.index)
-                frame[ii,:,:,:] = state_frame
+                state_frame, reward, done, info = self.env.step(action.index) # send action input to environment
+                frame[ii,:,:,:] = state_frame # stack the observation pairs
                 if done:
                     break
+            # save the max of the frame pair
             obs[:,:,i*int(self.obs_shape[2]):i*int(self.obs_shape[2])+int(self.obs_shape[2])] = np.amax(frame, axis=0)
             if done:
                 break
+        # Resize the observations
         obs = np.transpose(np.array([cv2.resize(i, (self.obs_shape[1],self.obs_shape[0]), interpolation=cv2.INTER_AREA) for i in np.transpose(obs, (2,0,1))]),(1,2,0))
-        self.observations += [obs]
+        self.observations += [obs] # add the observations to the game history
         self.done = done
+        # Calculate the reward
         action_reward = np.clip(info['x_pos'] - self.x_pos, -15, 15)
         action_reward += info['time'] - self.time
         action_reward += (info['life'] - self.life) * 15
         action_reward += info['coins'] - self.coins
         if info['flag_get'] == True:
             action_reward += 50
-
+        # update game state values
         self.x_pos = info['x_pos']
         self.time = info['time']
         self.life = info['life']
@@ -84,6 +92,10 @@ class SuperMarioBros(AbstractGame):
 
     def make_image(self, state_index: int):
         """Compute the state of the game."""
+        # This function makes a stack of image frames based on the number of previous observations
+        # and the shape of representation network input layer.
+        # Between each observation frame is a single plane encoding the action
+        # in a repeating 5x5 tile
         if state_index == -1:
             state_index = len(self.observations) - 1
         planes_per_obs = self.obs_shape[2]*int(self.steps/2) + 1
@@ -106,6 +118,7 @@ class SuperMarioBros(AbstractGame):
         return state[:,:,-64:].astype('float32') / 255
     
     def save_gif(self,image_name: str):
+        # Function that saves a gif to file to replay the game play
         from PIL import Image
         game = np.dstack([i for i in self.observations])
         gif = []
@@ -118,6 +131,7 @@ class SuperMarioBros(AbstractGame):
                        duration=50,
                        loop=0)
     def save_game_to_file(self, game_name):
+        # Function that pickles the game and saves it to file so it can be loaded by the trainer agent
         with open(os.path.join(self.memory_path,game_name), 'wb') as game_file:
             cPickle.dump(self, game_file) 
 
