@@ -1,6 +1,17 @@
 .. |copy| unicode:: 0xA9
 .. |---| unicode:: U+02014
 
+This fork contains modifications of MuZero to train a Super Mario Bros AI on a hobbyist machine. Changes included:
+ - Eliminated MCTS in favor of a learned search via the Policy network (to speed up training). Technically, this means that the
+    algorithm is no longer MuZero, but it should provide a similar performance for NES and Atari games.
+ - Separate Agent and Trainer scripts to allow full multiprocessing. Tested with 4 agents, 1 trainer.
+ - Complete games are saved to disk rather than duplicating the replay_buffer for each agent
+ - Replaced policy noise with an exploration network, which guides policy toward unexplored actions instead of random actions
+ - Many other undocumented changes to make everything work
+ 
+ 
+ The current configuration can solve almost all of the overworld levels of Super Mario Bros after 6 days of training on a gaming PC.
+
 ======
 MuZero
 ======
@@ -37,18 +48,7 @@ We run this code using:
 Training your MuZero
 ====================
 
-This code must be run from the main function in ``muzero.py`` (don't forget to first configure your conda environment).
 
-Training a Cartpole-v1 bot
---------------------------
-
-To train a model, please follow these steps:
-
-1) Create or modify an existing configuration of Muzero in ``config.py``.
-
-2) Call the right configuration inside the main of ``muzero.py``.
-
-3) Run the main function: ``python muzero.py``.
 
 Training on an other environment
 --------------------------------
