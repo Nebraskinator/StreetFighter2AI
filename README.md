@@ -9,7 +9,7 @@ This repository is a Python implementation of a heavily modified MuZero algorith
 Examples
 ======
 
-These runs were sampled after 6 days of training on a gaming PC:
+Below are examples of gameplay after 6 days of training on a gaming PC.
 
 ![](1-1.gif) ![](2-1.gif) ![](3-1.gif) ![](3-2.gif)
 
