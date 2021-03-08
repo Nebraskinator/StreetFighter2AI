@@ -4,7 +4,7 @@
 MuZero - Lite
 ======
 
-This repository is a Python implementation of a heavily modified MuZero algorithm. 
+This repository is a Python implementation of a heavily modified MuZero algorithm. The current configuration is to learn to play Super Mario Bros, but with modification it could be used to learn a number of OpenAI gym environments.
 
 Examples
 ======
