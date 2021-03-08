@@ -6,6 +6,10 @@ MuZero - Lite
 
 This repository is a Python implementation of a heavily modified MuZero algorithm. 
 
+Examples
+======
+![](1-1.gif) ![](2-1.gif)
+
 
 Neural Networks
 ======
@@ -34,9 +38,6 @@ Training
 - Exploration network is trained to the predicted policy from the Policy network. The loss value for the policy network is reduced by a fraction of the exploration network's loss.
 
 
-Examples
-======
-![](1-1.gif) ![](2-1.gif)
 
 **DISCLAIMER**: this code is early research code. What this means is:
 
