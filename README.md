@@ -1,13 +1,12 @@
-.. |copy| unicode:: 0xA9
-.. |---| unicode:: U+02014
 
-======
+
+
 MuZero - Lite
 ======
 
 This repository is a Python implementation of a heavily modified MuZero algorithm. 
 
-======
+
 Neural Networks
 ======
  - Representation network: observation --> hidden state
@@ -17,14 +16,14 @@ Neural Networks
  - Dynamics network: hidden state + action --> hidden state (future)
  - Exploration network: hidden state --> predicted policy
 
-======
+
 Self Play
 ======
 - Instead of MCTS, a truncated search is performed by ranking the output of the Policy network.
 - Games are saved to file instead of loaded directed into the replay_buffer
 - Gifs of each game are saved during training because they are fun to watch
 
-======
+
 Training
 ======
 - Games are loaded from file to fill the replay_buffer
@@ -34,7 +33,7 @@ Training
 - Reward netwrok is trained to the reward values
 - Exploration network is trained to the predicted policy from the Policy network. The loss value for the policy network is reduced by a fraction of the exploration network's loss.
 
-======
+
 Examples
 ======
 ![](1-1.gif)
