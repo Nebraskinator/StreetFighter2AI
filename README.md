@@ -8,7 +8,7 @@ This repository is a Python implementation of a heavily modified MuZero algorith
 
 Examples
 ======
-![](1-1.gif) ![](2-1.gif)
+![](1-1.gif) ![](2-1.gif) ![](3-1.gif) ![](3-2.gif)
 
 
 Neural Networks
