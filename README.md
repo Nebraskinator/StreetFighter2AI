@@ -28,7 +28,7 @@ Neural Networks
 
 Self Play
 ======
-- Instead of performing a Monte-Carlo tree search, actions are selected through a truncated search which ranks the output of the Policy network and evaluates the highest-ranking moves.
+- Instead of performing a Monte-Carlo tree search, actions are selected through a truncated search. The outputs of the Policy network are ranked and the highest-ranking moves are evaluated through a look-ahead search. 
 - Games are saved to file instead of loaded directed into the replay_buffer
 - Gifs of each game are saved during training because they are fun to watch
 
@@ -37,7 +37,7 @@ Training
 ======
 - Games are loaded from file to fill the replay_buffer
 - Experiences are sampled using Prioritized Experience Replay
-- Policy network is trained to the normalized value of each move from the self play truncated search
+- Policy network is trained to the normalized value of each move from the truncated search during self play
 - Value network is trained to the time-discounted future value + discounted accumulated future reward
 - Reward network is trained to the reward values
 - Exploration network is trained to the predicted policy from the Policy network. The loss value for the policy network is reduced by a fraction of the exploration network's loss.
