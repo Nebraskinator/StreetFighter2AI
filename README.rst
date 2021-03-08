@@ -29,12 +29,10 @@ Training
 ======
 - Games are loaded from file to fill the replay_buffer
 - Experiences are sampled using Prioritized Experience Replay
-- Policy network is trained to the normalized value of each move from the self play
-truncated search
+- Policy network is trained to the normalized value of each move from the self play truncated search
 - Value network is trained to the time-discounted future value + discounted accumulated future reward
 - Reward netwrok is trained to the reward values
-- Exploration network is trained to the predicted policy from the Policy network. The loss value
-for the policy network is reduced by a fraction of the exploration network's loss.
+- Exploration network is trained to the predicted policy from the Policy network. The loss value for the policy network is reduced by a fraction of the exploration network's loss.
 
 **DISCLAIMER**: this code is early research code. What this means is:
 
