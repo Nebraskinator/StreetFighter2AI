@@ -26,7 +26,7 @@ Neural Networks
 
 Self Play
 ======
-- Instead of MCTS, a truncated search is performed by ranking the output of the Policy network.
+- Instead of performing a Monte-Carlo tree search, actions are selected through a truncated search which ranks the output of the Policy network and evaluates the highest-ranking moves.
 - Games are saved to file instead of loaded directed into the replay_buffer
 - Gifs of each game are saved during training because they are fun to watch
 
