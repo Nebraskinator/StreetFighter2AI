@@ -23,6 +23,8 @@ Neural Networks
  - Dynamics network: hidden state + action --> hidden state (future)
  - Exploration network: hidden state --> predicted policy
 
+![](NetworkDiagram.png)
+
 
 Self Play
 ======
