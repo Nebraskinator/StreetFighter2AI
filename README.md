@@ -28,20 +28,21 @@ Neural Networks
 
 Self Play
 ======
-- Instead of performing a Monte-Carlo tree search, actions are selected through a truncated search. The outputs of the Policy network are ranked and the highest-ranking moves are evaluated through a look-ahead search. 
+- Instead of performing a Monte-Carlo tree search, actions are selected through a truncated search. The outputs of the Policy network are ranked and the highest-ranking moves are evaluated through a look-ahead search. During the look-ahead search, actions are chosen based on the maximum output of the Policy network. This ensures that the future value of an action is estimated in the context of the current policy.
 - Policy exploration is not random. It is guided by an adversarial Exploration network.
-- During training, actions are selected with a probability based on their estimated value.
+- In self play during training, actions are selected with a probability based on their estimated value. This ensures that some off-policy actions are observed to help train the Value network.
 - Games are saved to file instead of loaded directed into the replay_buffer.
 - Gifs of each game are saved during training because they are fun to watch.
 
 
-Training
+Network Training
 ======
 - Games are loaded from file to fill the replay_buffer.
 - Experiences are sampled using Prioritized Experience Replay.
-- Policy network is trained to the results of the truncated search during self play. The policy trains directly to the predicted relative value of each move from the look-ahead search.
+- Policy network is trained to the results of the truncated search during self play. The policy trains directly to the relative predicted value of each move from the look-ahead search.
 - Value network is trained to the time-discounted future value + discounted accumulated future reward
 - Reward network is trained to the reward values
+- Dynamics network is trained by unrolling future actions, policies, rewards, and values from the game history and training using the output of the Dynamics network as the hidden state.
 - Exploration network is trained to the predicted policy from the Policy network. The loss value for the policy network is reduced by a fraction of the exploration network's loss. This guides the policy towards strategies it has not tried previously.
 
 
