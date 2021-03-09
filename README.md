@@ -40,8 +40,8 @@ Network Training
 - Games are loaded from file to fill the replay_buffer.
 - Experiences are sampled using Prioritized Experience Replay.
 - Policy network is trained to the results of the truncated search during self play. The policy trains directly to the relative predicted value of each move from the look-ahead search.
-- Value network is trained to the time-discounted future value + discounted accumulated future reward
-- Reward network is trained to the reward values
+- Value network is trained to the time-discounted future value + discounted accumulated future reward.
+- Reward network is trained to the reward values. Based on several recent papers and some experimentation, this network can probably be eliminated without affecting performance.
 - Dynamics network is trained by unrolling future actions, policies, rewards, and values from the game history and training using the output of the Dynamics network as the hidden state.
 - Exploration network is trained to the predicted policy from the Policy network. The loss value for the policy network is reduced by a fraction of the exploration network's loss. This guides the policy towards strategies it has not tried previously.
 
