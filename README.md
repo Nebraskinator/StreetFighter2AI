@@ -9,7 +9,7 @@ This repository is a Python implementation of a heavily modified MuZero algorith
 Examples
 ======
 
-Below are examples of gameplay after 6 days of training on a gaming PC. This AI was trained on random overworld levels.
+Below are examples of gameplay after 6 days of training on a gaming PC.
 
 ![](1-1.gif) ![](2-1.gif) ![](3-1.gif) ![](3-2.gif) ![](4-1.gif) ![](5-1.gif) ![](5-2.gif) ![](6-1.gif) ![](7-1.gif) ![](8-1.gif) ![](8-2.gif) ![](8-3.gif) 
 
@@ -56,3 +56,7 @@ Network Training
 - It may not work reliably on other environments or with other hyper-parameters.
 - The code quality and documentation are quite lacking, and much of the code might still feel "in-progress".
 - The training and testing pipeline is not very advanced.
+
+**Changes from SuperMarioBrosAI**:
+
+- 
