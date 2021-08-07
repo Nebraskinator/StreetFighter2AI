@@ -78,7 +78,12 @@ Training Street Fighter 2 AIs proved to be much more challenging than the Super 
 
 In a 2-player setting, it is more difficult to judge if the network is learning. With the Super Mario Bros AI, it was easy to judge success as the AI learned to complete stages. In a 2-player game, the objective is to beat another AI which is also in the process of learning. Therefore I had to set up some criteria to ascertain if the AIs were improving. The approach I took was to analyze the strategy complexity for each AI. At different stages in the training, I looked at the frequency each move was chosen by the AI. A sufficiently complex strategy would include several different moves (no 1-button mashing!) and the preffered moves would change with different game states.
 
-Below is a figure of how move frequencies changed throughout the training process for the Ryu vs Dhalsim AIs. The ridge plots on the left and right show move frequencing distributions as the training progressed. 
+Below is a figure of how move frequencies changed throughout the training process for the Ryu vs Dhalsim AIs. The ridge plots on the left and right show move frequencing distributions as the training progressed. The center plot shows the winrates for each AI.
 
 ![](https://github.com/Nebraskinator/StreetFighter2AI/blob/master/figure%201.png) 
 
+Examining the move frequency distributions, we can see that early in the training, the Ryu AI prefers to use his Hurricane Kick almost exclusively. As training progresses, the Hurricane Kick frequency decreases and movement actions and basic attacks increase in frequency. These changes coincide with Yoga Flame and Yoga Fire projectile moves increasing in frequency for the Dhalsim AI. As the training reaches late stages, the Ryu AI winrate falls until the Dhalsim AI becomes heavily favored.
+
+These plots indicate that the AIs are learning a strategy and responding to the opponent's strategy, but are the AIs sufficiently complex? Are the observed changes simply a response to the move probabilities of the opponent, or are the AIs gaining a deeper understanding of the game? To help answer these questions, I analyzed how each AI responded to distance from opponent. Each move in Street Fighter 2 has a different range. A sufficiently complex AI should change its strategy based on how far away the opponent is. Below, I show ridge plots of move frequency distributions as the distance from the opponent decreases. The center plot shows the ouput of the Value Network as a function of distance to opponent. 
+
+![](https://github.com/Nebraskinator/StreetFighter2AI/blob/master/figure%202.png) 
