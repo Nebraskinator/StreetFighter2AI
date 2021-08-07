@@ -12,7 +12,7 @@ Examples
 Below are examples of gameplay after 6 days of training on a gaming PC.
 
 
-[![Ken vs Dhalsim]()](https://github.com/Nebraskinator/StreetFighter2AI/blob/master/agent01_1522_-46.mp4)
+[![Ken vs Dhalsim]()](https://github.com/Nebraskinator/StreetFighter2AI/blob/master/agent01_1522_-46.mp4?raw=true)
 
 [![Ken vs Dhalsim]()](https://github.com/Nebraskinator/StreetFighter2AI/blob/master/agent02_1543_24.mp4)
 
