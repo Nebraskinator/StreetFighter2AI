@@ -12,9 +12,9 @@ Examples
 Below are examples of gameplay after 6 days of training on a gaming PC.
 
 
-[![Ken vs Dhalsim]](https://github.com/Nebraskinator/StreetFighter2AI/blob/master/agent01_1522_-46.mp4)
-[![Ken vs Dhalsim]](https://github.com/Nebraskinator/StreetFighter2AI/blob/master/agent02_1543_24.mp4)
-[![Zangief vs E. Honda]](https://github.com/Nebraskinator/StreetFighter2AI/blob/master/agent04_717_35_zangief_ehonda.mp4)
+[![Ken vs Dhalsim]()](https://github.com/Nebraskinator/StreetFighter2AI/blob/master/agent01_1522_-46.mp4)
+[![Ken vs Dhalsim]()](https://github.com/Nebraskinator/StreetFighter2AI/blob/master/agent02_1543_24.mp4)
+[![Zangief vs E. Honda]()](https://github.com/Nebraskinator/StreetFighter2AI/blob/master/agent04_717_35_zangief_ehonda.mp4)
 
 Neural Networks
 ======
