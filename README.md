@@ -80,4 +80,4 @@ In a 2-player setting, it is more difficult to judge if the network is learning.
 
 Below is a figure of how move frequencies changed throughout the training process for the Ryu vs Dhalsim AIs. The ridge plots on the left and right show move frequencing distributions as the training progressed. 
 
-![Zangief vs E. Honda](figure 1.png)
+[!](figure 1.png)
