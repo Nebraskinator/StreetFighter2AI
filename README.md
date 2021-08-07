@@ -60,7 +60,24 @@ Network Training
 - It may not work reliably on other environments or with other hyper-parameters.
 - The code quality and documentation are quite lacking, and much of the code might still feel "in-progress".
 - The training and testing pipeline is not very advanced.
+- Not many comments, and many low-quality comments.
 
 **Changes from SuperMarioBrosAI**:
 
-- 
+- 2-player capability.
+- Value Network output for each player overlayed on videos.
+- Special moves encoded as discrete moves for 8 characters.
+- Reward function changed.
+- Change the step size of the Dynamic Model look-ahead function.
+- Game state detection to facilitate "rest states" during gameplay. When a fighter is locked in animation and cannot act, the nueral network is not used for inference (reduces computation overhead over 90%).
+- New Representation and Dynamic Network architectures based on Google's EfficientNet v1. 
+
+**Brief Description**
+
+Training Street Fighter 2 AIs proved to be much more challenging than the Super Mario Bros AI. Street Fighter 2 is a 2-player fighting game, so I implemented 2-player capabilities. The input for the neural network is an image sequence along with previous action encodings. These action encodings only represent the actions of the "self" player at the time of inference, giving each AI a slightly different "perspective" on the current game state. As with the Super Mario Bros AI, initial training on a random network was necessary to set a baseline for the Value Network.
+
+In a 2-player setting, it is more difficult to judge if the network is learning. With the Super Mario Bros AI, it was easy to judge success as the AI learned to complete stages. In a 2-player game, the objective is to beat another AI which is also in the process of learning. Therefore I had to set up some criteria to ascertain if the AIs were improving. The approach I took was to analyze the strategy complexity for each AI. At different stages in the training, I looked at the frequency each move was chosen by the AI. A sufficiently complex strategy would include several different moves (no 1-button mashing!) and the preffered moves would change with different game states.
+
+Below is a figure of how move frequencies changed throughout the training process for the Ryu vs Dhalsim AIs. The ridge plots on the left and right show move frequencing distributions as the training progressed. 
+
+![Zangief vs E. Honda](figure 1.png)
