@@ -11,7 +11,7 @@ Examples
 
 Below are examples of gameplay after 6 days of training on a gaming PC.
 
-![](1-1.gif) ![](2-1.gif) ![](3-1.gif) ![](3-2.gif) ![](4-1.gif) ![](5-1.gif) ![](5-2.gif) ![](6-1.gif) ![](7-1.gif) ![](8-1.gif) ![](8-2.gif) ![](8-3.gif) 
+![](agent01_1552_-46.mp4) ![](agent02_1543_24.mp4) ![](agent04_717_35_zangief_ehonda.mp4) 
 
 
 Neural Networks
