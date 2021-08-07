@@ -80,5 +80,5 @@ In a 2-player setting, it is more difficult to judge if the network is learning.
 
 Below is a figure of how move frequencies changed throughout the training process for the Ryu vs Dhalsim AIs. The ridge plots on the left and right show move frequencing distributions as the training progressed. 
 
-![](figure 1.png) 
+![](https://github.com/Nebraskinator/StreetFighter2AI/blob/master/figure%201.png) 
 
