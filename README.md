@@ -44,8 +44,12 @@ Network Training
 ======
 - Games are loaded from file to fill the replay_buffer.
 - Experiences are sampled using Prioritized Experience Replay.
+- Actions are chosen during gameplay based on a truncated Monte-Carlo tree search.
+![](Truncated MCTS.png)
 - Policy network is trained to the results of the truncated search during self play. The policy trains directly to the relative predicted value of each move from the look-ahead search.
-- Value network is trained to the time-discounted future value + discounted accumulated future reward.
+![](Target Policy.png)
+- Value network is trained to the time-discounted future value + discounted accumulated future reward. The output of the value network is a discrete encoding of the scalar value. In the context of gameplay, a reward corresponds to damaging an opponent. Dealing 6 damage with a kick move vs dealing 8 damage with a special move represents different discrete events. Therefore, using a MSE loss function to approximate value is not appropriate. Instead, the value function categorizes expected rewards into discete events via a categorical encoding.
+![](Discrete Encoding.png)
 - Reward network is trained to the reward values. Based on several recent papers and some experimentation, this network can probably be eliminated without affecting performance.
 - Dynamics network is trained by unrolling future actions, policies, rewards, and values from the game history and training using the output of the Dynamics network as the hidden state.
 - Exploration network is trained to the predicted policy from the Policy network. The loss value for the policy network is reduced by a fraction of the exploration network's loss. This guides the policy towards strategies it has not tried previously.
